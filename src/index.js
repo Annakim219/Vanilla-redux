@@ -16,6 +16,7 @@ const countReducer = (count = 0, action) => {
     return count;
   }
 };
+
 const countStore = createStore(countReducer);
 // store는 나의 data를 저장하는 곳.
 
