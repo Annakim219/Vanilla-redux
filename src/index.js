@@ -8,7 +8,6 @@ const countReducer = (count = 0, action) => {
   // count가 undifined되지 않도록 initialization
   // reducer는 나의 data를 modified하는 함수.
   // action은 reducer와 소통하기 위한 방법.
-  console.log(count, action);
   if (action.type === "ADD") {
     return count + 1;
   } else if (action.type === "MINUS") {
@@ -20,33 +19,12 @@ const countReducer = (count = 0, action) => {
 const countStore = createStore(countReducer);
 // store는 나의 data를 저장하는 곳.
 
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "ADD" });
+const onChange = () => {
+  number.innerText = countStore.getState();
+};
 
-// dispatch는 action을 실행하기 위한 메세지를 보내는 것.
-countStore.dispatch({ type: "MINUS" });
+countStore.subscribe(onChange);
+// subscribe : store에 변화가 있을 때 감지해서 함수를 불러옴.
 
-console.log(countStore.getState());
-
-// let count = 0;
-
-// number.innerText = count;
-
-// const updateText = () => {
-//   number.innerText = count;
-// };
-
-// const handleAdd = () => {
-//   count++;
-//   updateText();
-// };
-// const handleMinus = () => {
-//   count--;
-//   updateText();
-// };
-
-// add.addEventListener("click", handleAdd);
-// minus.addEventListener("click", handleMinus);
+add.addEventListener("click", () => countStore.dispatch({ type: "ADD" }));
+minus.addEventListener("click", () => countStore.dispatch({ type: "MINUS" }));
